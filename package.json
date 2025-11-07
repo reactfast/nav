@@ -1,0 +1,59 @@
+{
+  "name": "@reactfast/nav",
+  "version": "0.2.2",
+  "description": "Composable React navigation bars, headers, and footers with Headless UI.",
+  "main": "dist/realfastnav.cjs.js",
+  "module": "dist/realfastnav.es.js",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "browserslist": "defaults, not ie <= 11",
+  "keywords": [
+    "react",
+    "navigation",
+    "navbar",
+    "header",
+    "footer",
+    "menu",
+    "responsive",
+    "headlessui",
+    "tailwind",
+    "react-components"
+  ],
+  "author": "Jonathon Scott McClendon",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathonmcclendon/RealFastNav.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonathonmcclendon/RealFastNav/issues"
+  },
+  "homepage": "https://github.com/jonathonmcclendon/RealFastNav#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@headlessui/react": "^2.1.0",
+    "@heroicons/react": "^2.1.3",
+    "react-icons": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.3.2",
+    "tsup": "^6.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.4.20"
+  }
+}
