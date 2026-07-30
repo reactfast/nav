@@ -1,37 +1,47 @@
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { ChevronRightIcon } from '@heroicons/react/24/solid'
-import React, { useRef } from 'react'
-import Link from 'next/link'
+"use client";
+
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import React, { useRef } from "react";
+import Link from "next/link";
 
 export default function SimpleFlyout({ item, onHover }) {
-  const buttonRef = useRef(null)
+  const buttonRef = useRef(null);
   return (
     <Popover>
       {({ open }) => (
         <div
           className="relative"
           onMouseEnter={() => {
-            if (onHover && !open) buttonRef.current?.click()
+            if (onHover && !open) buttonRef.current?.click();
           }}
           onMouseLeave={() => {
-            if (onHover && open) buttonRef.current?.click()
+            if (onHover && open) buttonRef.current?.click();
           }}
         >
           <div className="flex items-center gap-x-1">
             {item.useLink ? (
-              <Link href={item.href} className="text-sm/6 font-semibold text-gray-900">
+              <Link
+                href={item.href}
+                className="text-sm/6 font-semibold text-gray-900"
+              >
                 {item.title}
               </Link>
             ) : (
-              <span className="text-sm/6 font-semibold text-gray-900">{item.title}</span>
+              <span className="text-sm/6 font-semibold text-gray-900">
+                {item.title}
+              </span>
             )}
             <PopoverButton
               ref={buttonRef}
               className="inline-flex items-center p-1 text-gray-700 hover:text-gray-900"
               aria-label={`Open ${item.title} menu`}
             >
-              <ChevronDownIcon aria-hidden="true" className="size-5 flex-none" />
+              <ChevronDownIcon
+                aria-hidden="true"
+                className="size-5 flex-none"
+              />
             </PopoverButton>
           </div>
 
@@ -47,19 +57,28 @@ export default function SimpleFlyout({ item, onHover }) {
                     className="flex items-center rounded-md px-3 py-2 text-sm text-gray-400 transition-colors duration-300 group-hover:text-black"
                   >
                     {(() => {
-                      const Icon = sub.icon
-                      if (!Icon) return <ChevronRightIcon className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                      const Icon = sub.icon;
+                      if (!Icon)
+                        return (
+                          <ChevronRightIcon className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                        );
                       if (React.isValidElement(Icon)) {
                         return React.cloneElement(Icon, {
-                          className: 'mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary',
-                          'aria-hidden': true,
-                        })
+                          className:
+                            "mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary",
+                          "aria-hidden": true,
+                        });
                       }
-                      if (typeof Icon === 'function') {
-                        const C = Icon
-                        return <C aria-hidden className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                      if (typeof Icon === "function") {
+                        const C = Icon;
+                        return (
+                          <C
+                            aria-hidden
+                            className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary"
+                          />
+                        );
                       }
-                      return null
+                      return null;
                     })()}
                     <span>{sub.title}</span>
                   </Link>
@@ -72,19 +91,28 @@ export default function SimpleFlyout({ item, onHover }) {
                     className="flex items-center rounded-md px-3 py-2 text-sm text-gray-400 transition-colors duration-300 group-hover:text-black"
                   >
                     {(() => {
-                      const Icon = cta.icon
-                      if (!Icon) return <ChevronRightIcon className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                      const Icon = cta.icon;
+                      if (!Icon)
+                        return (
+                          <ChevronRightIcon className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                        );
                       if (React.isValidElement(Icon)) {
                         return React.cloneElement(Icon, {
-                          className: 'mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary',
-                          'aria-hidden': true,
-                        })
+                          className:
+                            "mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary",
+                          "aria-hidden": true,
+                        });
                       }
-                      if (typeof Icon === 'function') {
-                        const C = Icon
-                        return <C aria-hidden className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary" />
+                      if (typeof Icon === "function") {
+                        const C = Icon;
+                        return (
+                          <C
+                            aria-hidden
+                            className="mr-2 h-5 w-5 text-gray-500 transition-all duration-300 group-hover:mr-3 group-hover:text-primary"
+                          />
+                        );
                       }
-                      return null
+                      return null;
                     })()}
                     <span>{cta.title}</span>
                   </a>
@@ -95,7 +123,5 @@ export default function SimpleFlyout({ item, onHover }) {
         </div>
       )}
     </Popover>
-  )
+  );
 }
-
-

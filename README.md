@@ -4,8 +4,16 @@
 
 [![npm version](https://img.shields.io/npm/v/%40reactfast%2Fnav.svg)](https://www.npmjs.com/package/@reactfast/nav)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Build](https://github.com/jonathonmcclendon/RealFastNav/actions/workflows/build.yml/badge.svg)](https://github.com/jonathonmcclendon/RealFastNav/actions)
-[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/jonathonmcclendon/RealFastNav/issues)
+[![Build](https://github.com/reactfast/nav/actions/workflows/build.yml/badge.svg)](https://github.com/reactfast/nav/actions)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/reactfast/nav/issues)
+
+### GitHub
+
+- Repository: [reactfast/nav](https://github.com/reactfast/nav)
+- Issues: [Open issues](https://github.com/reactfast/nav/issues)
+- Pull requests: [View PRs](https://github.com/reactfast/nav/pulls)
+- Actions: [CI workflows](https://github.com/reactfast/nav/actions)
+- Releases: [Latest releases](https://github.com/reactfast/nav/releases)
 
 ---
 
@@ -89,7 +97,9 @@ Concepts
         href: "/services",
         useLink: true,
         full: true,
-        subMenu: [{ title: "Install", href: "/services/install", useLink: true }],
+        subMenu: [
+          { title: "Install", href: "/services/install", useLink: true },
+        ],
         ctas: [
           { title: "Call", href: "tel:0000000000" },
           { title: "Contact", href: "/contact" },
@@ -115,26 +125,61 @@ Concepts
 
   ```jsx
   const config = {
-    sticky: true,              // stick to top on scroll
-    logo: "/logo.png",         // optional image logo
+    sticky: true, // stick to top on scroll
+    logo: "/logo.png", // optional image logo
     logoAlt: "Brand",
-    fallbackText: "Brand",     // text shown if no image
+    fallbackText: "Brand", // text shown if no image
   };
   ```
 
 - Search modal (optional)
 
   ```jsx
-  const config = {
-    search: true,
-    // Optional event hooks:
-    // onSearchOpenChange(open: boolean)
-    // onSearch(query: string)
-    // onSearchChange(query: string)
-    // onClearQuickResults()
-    // onBeginNavigate()
-  };
+  import { NavController } from "@reactfast/nav";
+  import { useMemo, useState } from "react";
+
+  export default function Header() {
+    const [results, setResults] = useState([]);
+
+    const config = useMemo(
+      () => ({
+        menuItems: [{ title: "Home", href: "/", useLink: true }],
+      }),
+      [],
+    );
+
+    const handleSearchChange = async (query) => {
+      if (!query.trim()) {
+        setResults([]);
+        return;
+      }
+
+      const response = await fetch(
+        `/api/search?q=${encodeURIComponent(query)}`,
+      );
+      const data = await response.json();
+      setResults(data.items || []);
+    };
+
+    return (
+      <NavController
+        baseConfig={config}
+        quickSearchResults={results}
+        onSearchChange={handleSearchChange}
+        onClearQuickResults={() => setResults([])}
+      />
+    );
+  }
   ```
+
+  `NavController` now keeps the search UI internal, but the data flow external:
+  - `quickSearchResults`: results to render in the modal
+  - `onSearchChange(query)`: called whenever the field changes
+  - `onSearch(query)`: optional override for submit behavior
+  - `onSearchOpenChange(open)`: optional modal open/close callback
+  - `onClearQuickResults()`: optional callback when the modal closes or a result is selected
+
+  See `src/examples/navAndSearch.jsx` for a small mocked example you can adapt to Sanity, Algolia, or your own API.
 
 ---
 
